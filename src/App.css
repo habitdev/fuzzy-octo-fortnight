@@ -65,3 +65,85 @@
 .visual-section .hero-spot__mask img {
 	object-fit: cover;
 }
+
+.emotion-section {
+	position: relative;
+	padding-top: 6rem;
+	padding-bottom: 10rem;
+	border-top-right-radius: 3.75rem;
+	border-top-left-radius: 3.75rem;
+	background-color: #fff;
+}
+
+.emotion-section .emotion-txt-wrap {
+	display: flex;
+	justify-content: center;
+	text-align: left;
+}
+
+.emotion-txt-wrap {
+}
+
+.emotion-txt {
+	font-size: 60px;
+}
+
+.emotion-txt.space {
+	margin-left: 13vw;
+}
+
+.emotion-txt strong {
+	font-weight: 800;
+}
+
+.about-circles-wrap {
+	position: sticky;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.about-circles {
+	display: grid;
+	width: 270vh;
+	height: 180vh;
+  margin-top: 12rem;
+  margin-right: -175vh;
+	grid-template-rows: 60vh 60vh;
+	grid-template-columns: repeat(3, 60vh);
+	grid-auto-columns: 1fr;
+}
+
+.about-circles .about-circles__item {
+}
+
+.about-circles .about-circles__item .circle {
+	width: 60vh;
+	height: 60vh;
+	border-radius: 50%;
+	padding: 3.75rem;
+	border: 1px solid #dcdcdc;
+}
+
+.about-circles .circle-obj {
+	position: relative;
+	text-align: center;
+}
+
+.about-circles .circle-obj img {
+	border-radius: 50%;
+	width: 100%;
+}
+
+.about-circles .circle-txt {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 3.125rem;
+	font-weight: 600;
+	color: #fff;
+}
