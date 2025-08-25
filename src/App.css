@@ -67,6 +67,7 @@
 }
 
 .emotion-section {
+	overflow: hidden;
 	position: relative;
 	padding-top: 6rem;
 	padding-bottom: 10rem;
@@ -96,6 +97,10 @@
 	font-weight: 800;
 }
 
+.about-section {
+  overflow: hidden;
+}
+
 .about-circles-wrap {
 	position: sticky;
 	display: flex;
@@ -106,8 +111,8 @@
 	display: grid;
 	width: 180vh;
 	height: 120vh;
-  margin-top: 12rem;
-  margin-right: -90vh;
+	margin-top: 12rem;
+	margin-right: -90vh;
 	grid-template-rows: 60vh 60vh;
 	grid-template-columns: repeat(3, 60vh);
 	grid-auto-columns: 1fr;
@@ -146,4 +151,66 @@
 	font-size: 3.125rem;
 	font-weight: 600;
 	color: #fff;
+}
+
+.about-section .about__bg {
+	position: sticky;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.about-section .about__bg .bg-list {
+	display: inline-grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 2rem;
+	padding-top: 10rem;
+}
+
+.about-section .about__bg .bg-list > li {
+	display: flex;
+}
+
+.about-section .about__bg .bg-list img {
+	opacity: 0.3;
+	filter: blur(8px);
+}
+
+.about-section .about__bg .bg-list > li.top {
+	align-items: flex-end;
+}
+
+.about-section .about__bg .bg-list > li.left {
+	justify-content: flex-end;
+}
+
+.about-section .about__bg .bg-list > li.left.top {
+	transform: translate(-100%, -100%);
+}
+.about-section .about__bg .bg-list > li.right.top {
+	transform: translate(100%, -100%);
+}
+.about-section .about__bg .bg-list > li.left.bottom {
+	transform: translate(-100%, 100%);
+}
+.about-section .about__bg .bg-list > li.right.bottom {
+	transform: translate(100%, 100%);
+}
+
+.about-section .about-words {
+	font-size: 60px;
+	font-weight: 500;
+	color: #fff;
+	text-align: center;
+}
+
+.about-section .about-words__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.about-section .about-txt strong {
+	font-weight: 600;
 }

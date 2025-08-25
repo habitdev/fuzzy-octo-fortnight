@@ -92,6 +92,43 @@ function App() {
 						</div>
 					</div>
 				</section>
+				<section className="about-section">
+					<div className="about__bg">
+						<ul className="bg-list">
+							<li className='left top'>
+								<img src="/assets/bg_about_obj_01.png" alt="album" />
+							</li>
+							<li className='right top'>
+								<img src="/assets/bg_about_obj_02.png" alt="record" />
+							</li>
+							<li className='left bottom'>
+								<img src="/assets/bg_about_obj_03.png" alt="album" />
+							</li>
+							<li className='right bottom'>
+								<img src="/assets/bg_about_obj_04.png" alt="album" />
+							</li>
+						</ul>
+					</div>
+					<div className="container">
+						<ul className="about-words">
+							<li className="about-words__item">
+								<p className="about-txt">
+									You <strong>feel</strong> it.
+								</p>
+							</li>
+							<li className="about-words__item">
+								<p className="about-txt">
+									We <strong>play</strong> it.
+								</p>
+							</li>
+							<li className="about-words__item">
+								<p className="about-txt">
+									A playlist born from  your <strong>mood</strong>.
+								</p>
+							</li>
+						</ul>
+					</div>
+				</section>
 			</main>
 			<footer id="footer">
 				<div className="container"></div>
