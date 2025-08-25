@@ -98,7 +98,7 @@
 }
 
 .about-section {
-  overflow: hidden;
+	overflow: hidden;
 }
 
 .about-circles-wrap {
@@ -213,4 +213,32 @@
 
 .about-section .about-txt strong {
 	font-weight: 600;
+}
+
+#footer {
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+	border-top-right-radius: 3.75rem;
+	border-top-left-radius: 3.75rem;
+	background-color: #5b5bf1;
+}
+
+#footer .btn-link {
+  width: 100%;
+  padding: 0.625em 1em;
+  color: #fff;
+  font-size: 50px;
+  text-decoration: none;
+  border: 2px solid #fff;
+  border-radius: 2.125rem;
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.button span + img {
+	margin-left: 0.5em;
 }

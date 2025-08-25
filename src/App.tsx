@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -94,20 +95,22 @@ function App() {
 				</section>
 				<section className="about-section">
 					<div className="about__bg">
-						<ul className="bg-list">
-							<li className='left top'>
-								<img src="/assets/bg_about_obj_01.png" alt="album" />
-							</li>
-							<li className='right top'>
-								<img src="/assets/bg_about_obj_02.png" alt="record" />
-							</li>
-							<li className='left bottom'>
-								<img src="/assets/bg_about_obj_03.png" alt="album" />
-							</li>
-							<li className='right bottom'>
-								<img src="/assets/bg_about_obj_04.png" alt="album" />
-							</li>
-						</ul>
+						<div className="bg-list-wrap">
+							<ul className="bg-list">
+								<li className="left top">
+									<img src="/assets/bg_about_obj_01.png" alt="album" />
+								</li>
+								<li className="right top">
+									<img src="/assets/bg_about_obj_02.png" alt="record" />
+								</li>
+								<li className="left bottom">
+									<img src="/assets/bg_about_obj_03.png" alt="album" />
+								</li>
+								<li className="right bottom">
+									<img src="/assets/bg_about_obj_04.png" alt="album" />
+								</li>
+							</ul>
+						</div>
 					</div>
 					<div className="container">
 						<ul className="about-words">
@@ -123,7 +126,7 @@ function App() {
 							</li>
 							<li className="about-words__item">
 								<p className="about-txt">
-									A playlist born from  your <strong>mood</strong>.
+									A playlist born from your <strong>mood</strong>.
 								</p>
 							</li>
 						</ul>
@@ -131,7 +134,12 @@ function App() {
 				</section>
 			</main>
 			<footer id="footer">
-				<div className="container"></div>
+				<div className="container">
+					<Link to="#" className="button btn-link">
+						<span>Wanna give it a try?</span>
+						<img src="/assets/ico_arrow_down_left.svg" alt="arrow" />
+					</Link>
+				</div>
 			</footer>
 		</>
 	);
