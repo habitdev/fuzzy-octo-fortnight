@@ -104,10 +104,10 @@
 
 .about-circles {
 	display: grid;
-	width: 270vh;
-	height: 180vh;
+	width: 180vh;
+	height: 120vh;
   margin-top: 12rem;
-  margin-right: -175vh;
+  margin-right: -90vh;
 	grid-template-rows: 60vh 60vh;
 	grid-template-columns: repeat(3, 60vh);
 	grid-auto-columns: 1fr;
