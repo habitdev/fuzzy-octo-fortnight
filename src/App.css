@@ -1,38 +1,67 @@
-.App {
-  text-align: center;
+.container {
+	padding: 0 40px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.visual-section {
+	overflow: hidden;
+	position: relative;
+	height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.visual-section .hero-tit {
+	z-index: 2;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	transform: translateY(-50%);
+	font-size: 110px;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.visual-section .hero-tit__row {
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
-.App-link {
-  color: #61dafb;
+.visual-section .hero-tit__row > span {
+	/* transform: translateY(100%); */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.visual-section .hero-spot {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.visual-section .hero-spot__mask {
+	position: sticky;
+	left: 0;
+	width: 100%;
+	height: 100svh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	clip-path: inset(18% 36%);
+}
+
+.visual-section .hero-spot__mask .mask-bg {
+	overflow: hidden;
+	/* width: 30%;
+	height: 65%; */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.visual-section .hero-spot__mask img {
+	object-fit: cover;
 }
