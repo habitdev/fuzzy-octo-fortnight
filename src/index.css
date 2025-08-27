@@ -60,7 +60,6 @@ table {
   box-sizing: border-box;
 }
 body {
-	background-color: #111;
 	font-family: -apple-system, Montserrat, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
 		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -68,6 +67,7 @@ body {
   line-height: normal;
   letter-spacing: -0.1em;
   font-size-adjust: 0.5;
+  background-color: #111;
 }
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
