@@ -22,7 +22,7 @@ export const HeroWrap = styled.article`
 	position: sticky;
 	top: 0;
 	left: 0;
-	height: 300svh;
+	height: 250svh;
 `;
 
 export const HeroTitleWrap = styled.div`
@@ -39,6 +39,7 @@ export const HeroTitleWrap = styled.div`
 	color: #fff;
 	text-align: center;
 `;
+
 export const HeroTitle = styled.div`
 	opacity: 1;
 	transform: translateY(0);
@@ -90,7 +91,7 @@ export const WaveWrap = styled.article`
 	left: 0;
 	width: 100%;
 	height: 300svh;
-	text-align: center; 
+	text-align: center;
 `;
 
 export const WaveWrapInner = styled.div`
@@ -98,10 +99,12 @@ export const WaveWrapInner = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%; 
+	height: 100%;
+	overflow: hidden;
 `;
 
 export const WaveTitWrap = styled.div`
+	opacity: 1;
 	position: sticky;
 	top: 0;
 	left: 0;
@@ -155,9 +158,7 @@ export const WaveCircle = styled.span`
 
 // Emotion Section
 export const EmotionSection = styled.section`
-	overflow: hidden;
 	position: relative;
-	margin-top: 0;
 	padding-top: 6rem;
 	padding-bottom: 12rem;
 	border-top-right-radius: 3.75rem;
@@ -171,6 +172,10 @@ export const EmotionTextWrap = styled.div`
 	text-align: left;
 `;
 
+export const EmotionWords = styled.div`
+	padding-bottom: 10rem;
+`;
+
 export const EmotionText = styled.p.withConfig({
 	shouldForwardProp: (prop) => prop !== 'space',
 })<{ space?: boolean }>`
@@ -182,37 +187,48 @@ export const EmotionText = styled.p.withConfig({
 	}
 `;
 
-// About Section
-export const AboutSection = styled.section`
+export const EmotionCirclesWrap = styled.div`
 	position: relative;
+	height: 720svh;
+`;
+
+export const EmotionCirclesWrapInner = styled.div`
+	position: sticky;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: flex-end;
 	overflow: hidden;
 `;
 
-export const AboutCirclesWrap = styled.div`
-	position: sticky;
-	display: flex;
-	justify-content: flex-end;
-`;
-
-export const AboutCircles = styled.ul`
+export const EmotionCircles = styled.ul`
+	position: relative;
 	display: grid;
-	grid-template-rows: 60vh 60vh;
-	grid-template-columns: repeat(3, 60vh);
+	grid-template-rows: 80svh 80svh;
+	grid-template-columns: repeat(3, 80svh);
 	grid-auto-columns: 1fr;
-	width: 180vh;
-	height: 120vh;
-	margin-top: 12rem;
-	margin-right: -90vh;
+	width: 240svh;
+	height: 160svh;
+	right: -155svh;
+	margin-top: 5svh;
 `;
-
-export const AboutCirclesItem = styled.li``;
 
 export const Circle = styled.div`
-	width: 60vh;
-	height: 60vh;
+	width: 100%;
+	height: 100%;
+`;
+
+export const EmotionCirclesItem = styled.li`
+	width: 80svh;
+	height: 80svh;
 	border-radius: 50%;
 	padding: 3.75rem;
 	border: 1px solid #dcdcdc;
+
+	&:first-child {
+		transform: scale(0);
+	}
 `;
 
 export const CircleObj = styled.figure`
@@ -237,6 +253,11 @@ export const CircleTxt = styled.figcaption`
 	font-size: 3.125rem;
 	font-weight: 600;
 	color: #fff;
+`;
+
+// About Section
+export const AboutSection = styled.section`
+	position: relative;
 `;
 
 // About Background

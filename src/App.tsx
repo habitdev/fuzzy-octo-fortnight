@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
 	AboutBg,
-	AboutCircles,
-	AboutCirclesItem,
-	AboutCirclesWrap,
 	AboutSection,
 	AboutText,
 	AboutWordItem,
@@ -16,9 +13,14 @@ import {
 	CircleObj,
 	CircleTxt,
 	Container,
+	EmotionCircles,
+	EmotionCirclesItem,
+	EmotionCirclesWrap,
+	EmotionCirclesWrapInner,
 	EmotionSection,
 	EmotionText,
 	EmotionTextWrap,
+	EmotionWords,
 	Footer,
 	HeroMask,
 	HeroSection,
@@ -59,7 +61,9 @@ function App() {
 	const waveTitWrapRef = useRef(null);
 	const waveTitRef = useRef(null);
 	const rippleRef = useRef(null);
+	const emotionSectionRef = useRef(null);
 	const emotionRef = useRef(null);
+	const emotionCirclesRef = useRef(null);
 	const aboutRef = useRef(null);
 	const footerRef = useRef(null);
 
@@ -106,39 +110,71 @@ function App() {
 				},
 			});
 
-			gsap.to(waveTitRef.current, {
-				id: 'wave-tit',
-				opacity: 1,
-				y: 0,
-				duration: 0.5,
-				scrollTrigger: {
-					trigger: waveTitWrapRef.current,
-					start: 'center top',
-					end: `center top`,
-					toggleActions: 'play none reverse none',
-					// markers: true,
-				},
-			});
+			// gsap.to(waveTitRef.current, {
+			// 	id: 'wave-tit',
+			// 	opacity: 1,
+			// 	y: 0,
+			// 	duration: 0.5,
+			// 	scrollTrigger: {
+			// 		trigger: waveTitWrapRef.current,
+			// 		start: 'center top',
+			// 		end: `center top`,
+			// 		// toggleActions: 'play none reverse none',
+			// 		// markers: true,
+			// 	},
+			// });
 
 			ScrollTrigger.create({
 				trigger: waveSectionRef.current,
 				start: 'top top',
-				end: `bottom top`,
+				end: 'bottom top',
 				pin: true,
 				pinSpacing: false,
 				// markers: true,
 			});
 
-			const q = gsap.utils.selector(rippleRef);
-			const circles = q('.circle');
+			const circleSelector = gsap.utils.selector(rippleRef);
+			const circles = circleSelector('.circle');
 
 			const tl = gsap.timeline({
 				scrollTrigger: {
-					trigger: rippleRef.current,
-					start: 'center center',
-					end: 'bottom center',
+					trigger: waveSectionRef.current,
+					start: 'top top',
+					end: 'bottom bottom',
 					scrub: true,
-					markers: true,
+					// markers: true,
+				},
+			});
+
+			gsap.fromTo(
+				waveTitRef.current,
+				{ opacity: 0, y: 30 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.5,
+					ease: 'sine.out',
+					scrollTrigger: {
+						id: 'tit-fadeup',
+						trigger: rippleRef.current,
+						start: 'top top',
+						end: 'top top',
+						toggleActions: 'play none reverse none',
+						// markers: true,
+						scrub: false,
+					},
+				}
+			);
+
+			gsap.to(waveTitWrapRef.current, {
+				opacity: 0,
+				scrollTrigger: {
+					id: 'tit-opacity',
+					trigger: emotionSectionRef.current,
+					start: 'top bottom',
+					end: 'top center',
+					scrub: true,
+					// markers: true,
 				},
 			});
 
@@ -164,7 +200,50 @@ function App() {
 			});
 		});
 
+		const emotionTimeline = gsap.timeline({
+			scrollTrigger: {
+				trigger: emotionRef.current,
+				start: 'top bottom',
+				end: 'bottom bottom',
+				scrub: true,
+				id: 'st-emotion',
+				// markers: true,
+			},
+		});
 
+		const emotionSelector = gsap.utils.selector(emotionCirclesRef);
+		const firstEmotionCircle = emotionSelector('.item')[0];
+		const innerDiv = firstEmotionCircle.querySelector('div');
+
+		emotionTimeline.fromTo(
+			firstEmotionCircle,
+			{
+				scale: 0,
+			},
+			{
+				scale: 1,
+				force3D: true,
+				duration: 0.4,
+				ease: 'sine.out',
+			}
+		);
+
+		emotionTimeline
+			.to(emotionCirclesRef.current, {
+				x: '-160svh',
+				duration: 1.4,
+				ease: 'none',
+			})
+			.to(emotionCirclesRef.current, {
+				y: '-80svh',
+				duration: 1,
+				ease: 'none',
+			})
+			.to(emotionCirclesRef.current, {
+				x: '-60svh',
+				duration: 1,
+				ease: 'none',
+			});
 
 		setTimeout(() => {
 			ScrollTrigger.refresh();
@@ -214,10 +293,10 @@ function App() {
 					</HeroSectionAll>
 				</HeroSection>
 
-				<EmotionSection ref={emotionRef}>
-					<Container>
-						<EmotionTextWrap>
-							<div className="emotion-words">
+				<EmotionSection ref={emotionSectionRef}>
+					<EmotionTextWrap>
+						<Container>
+							<EmotionWords>
 								<EmotionText>
 									Some <strong>feelings</strong> can’t be explained.
 								</EmotionText>
@@ -227,62 +306,64 @@ function App() {
 								<EmotionText>
 									We help you <strong>hear</strong> yours.
 								</EmotionText>
-							</div>
-						</EmotionTextWrap>
+							</EmotionWords>
+						</Container>
+					</EmotionTextWrap>
 
-						<AboutCirclesWrap>
-							<AboutCircles>
-								<AboutCirclesItem>
+					<EmotionCirclesWrap ref={emotionRef}>
+						<EmotionCirclesWrapInner>
+							<EmotionCircles className="emotion-circles" ref={emotionCirclesRef}>
+								<EmotionCirclesItem className="item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_happy.png" alt="" />
 											<CircleTxt>Happy</CircleTxt>
 										</CircleObj>
 									</Circle>
-								</AboutCirclesItem>
-								<AboutCirclesItem>
+								</EmotionCirclesItem>
+								<EmotionCirclesItem className="item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_calm.png" alt="" />
 											<CircleTxt>Calm</CircleTxt>
 										</CircleObj>
 									</Circle>
-								</AboutCirclesItem>
-								<AboutCirclesItem>
+								</EmotionCirclesItem>
+								<EmotionCirclesItem className="item trigger">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_focus.png" alt="" />
 											<CircleTxt>Focus</CircleTxt>
 										</CircleObj>
 									</Circle>
-								</AboutCirclesItem>
-								<AboutCirclesItem>
+								</EmotionCirclesItem>
+								<EmotionCirclesItem className="item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_sad.png" alt="" />
 											<CircleTxt>Sad</CircleTxt>
 										</CircleObj>
 									</Circle>
-								</AboutCirclesItem>
-								<AboutCirclesItem>
+								</EmotionCirclesItem>
+								<EmotionCirclesItem className="item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_lonely.png" alt="" />
 											<CircleTxt>Lonely</CircleTxt>
 										</CircleObj>
 									</Circle>
-								</AboutCirclesItem>
-								<AboutCirclesItem>
+								</EmotionCirclesItem>
+								<EmotionCirclesItem className="item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_dreamy.png" alt="" />
 											<CircleTxt>Dreamy</CircleTxt>
 										</CircleObj>
 									</Circle>
-								</AboutCirclesItem>
-							</AboutCircles>
-						</AboutCirclesWrap>
-					</Container>
+								</EmotionCirclesItem>
+							</EmotionCircles>
+						</EmotionCirclesWrapInner>
+					</EmotionCirclesWrap>
 				</EmotionSection>
 
 				<AboutSection>
