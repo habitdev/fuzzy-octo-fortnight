@@ -99,8 +99,7 @@ export const WaveWrapInner = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
-	overflow: hidden;
+	height: 100svh;
 `;
 
 export const WaveTitWrap = styled.div`
@@ -108,11 +107,11 @@ export const WaveTitWrap = styled.div`
 	position: sticky;
 	top: 0;
 	left: 0;
-	height: 100svh;
+	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-direction: column; 
+	flex-direction: column;
 `;
 
 export const WaveTit = styled.h2`
@@ -134,12 +133,13 @@ export const WaveCircleWrap = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	overflow: hidden;
 `;
 
 export const WaveCircles = styled.div`
 	position: relative;
-	width: 80vh;
-	height: 80vh;
+	width: 90vh;
+	height: 90vh;
 	margin-left: auto;
 	margin-right: auto;
 `;
@@ -173,7 +173,7 @@ export const EmotionTextWrap = styled.div`
 `;
 
 export const EmotionWords = styled.div`
-	padding-bottom: 10rem;
+	/* padding-bottom: 10rem; */
 `;
 
 export const EmotionText = styled.p.withConfig({
@@ -183,13 +183,13 @@ export const EmotionText = styled.p.withConfig({
 	${({ space }) => space && 'margin-left: 13vw;'}
 
 	strong {
-		font-weight: 800;
+		font-weight: 900;
 	}
 `;
 
 export const EmotionCirclesWrap = styled.div`
 	position: relative;
-	height: 720svh;
+	height: 700svh;
 `;
 
 export const EmotionCirclesWrapInner = styled.div`
@@ -205,12 +205,12 @@ export const EmotionCirclesWrapInner = styled.div`
 export const EmotionCircles = styled.ul`
 	position: relative;
 	display: grid;
-	grid-template-rows: 80svh 80svh;
-	grid-template-columns: repeat(3, 80svh);
+	grid-template-rows: 90svh 90svh;
+	grid-template-columns: repeat(3, 90svh);
 	grid-auto-columns: 1fr;
-	width: 240svh;
-	height: 160svh;
-	right: -155svh;
+	width: 270svh;
+	height: 180svh;
+	right: -175svh;
 	margin-top: 5svh;
 `;
 
@@ -220,28 +220,49 @@ export const Circle = styled.div`
 `;
 
 export const EmotionCirclesItem = styled.li`
-	width: 80svh;
-	height: 80svh;
+	width: 90svh;
+	height: 90svh;
 	border-radius: 50%;
 	padding: 3.75rem;
 	border: 1px solid #dcdcdc;
+	transform: scale(0);
+	transition: scale 0.2s;
 
-	&:first-child {
-		transform: scale(0);
+	&:nth-child(6) {
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	&:nth-child(4) {
+		grid-column: 3;
+		grid-row: 2;
+	}
+
+	&:nth-child(5) {
+		grid-column: 2;
+		grid-row: 2;
 	}
 `;
 
 export const CircleObj = styled.figure`
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 	text-align: center;
+	clip-path: circle(20%);
 `;
 
 export const CircleImage = styled.img`
 	border-radius: 50%;
 	width: 100%;
+	object-fit: cover;
+	/* transform: scale(0.3); */
 `;
 
 export const CircleTxt = styled.figcaption`
+	opacity: 0;
 	position: absolute;
 	top: 0;
 	left: 0;

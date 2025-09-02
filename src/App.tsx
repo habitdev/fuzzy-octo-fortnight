@@ -124,15 +124,6 @@ function App() {
 			// 	},
 			// });
 
-			ScrollTrigger.create({
-				trigger: waveSectionRef.current,
-				start: 'top top',
-				end: 'bottom top',
-				pin: true,
-				pinSpacing: false,
-				// markers: true,
-			});
-
 			const circleSelector = gsap.utils.selector(rippleRef);
 			const circles = circleSelector('.circle');
 
@@ -200,54 +191,104 @@ function App() {
 			});
 		});
 
+		const emotionSelector = gsap.utils.selector(emotionCirclesRef);
+		const emotionCircleItem = emotionSelector('.emotion-circles__item');
+		// const emotionCircleItem = emotionSelector('.item');
+
+		const emotionMovement = [
+			{ x: '-90svh' },
+			{ x: '-180svh' },
+			{ y: '-90svh' },
+			{ x: '-45svh' },
+			null,
+			null,
+		];
+
 		const emotionTimeline = gsap.timeline({
 			scrollTrigger: {
+				id: 'st-emotion',
 				trigger: emotionRef.current,
 				start: 'top bottom',
 				end: 'bottom bottom',
 				scrub: true,
-				id: 'st-emotion',
 				// markers: true,
 			},
 		});
 
-		const emotionSelector = gsap.utils.selector(emotionCirclesRef);
-		const firstEmotionCircle = emotionSelector('.item')[0];
-		const innerDiv = firstEmotionCircle.querySelector('div');
+		emotionTimeline.to(emotionCircleItem, {
+			scale: 1,
+			force3D: true,
+			duration: 0.3,
+			ease: 'sine.out',
+		});
 
-		emotionTimeline.fromTo(
-			firstEmotionCircle,
-			{
-				scale: 0,
-			},
-			{
-				scale: 1,
-				force3D: true,
-				duration: 0.4,
-				ease: 'sine.out',
+		emotionMovement.forEach((config, index) => {
+			const item = emotionCircleItem[index];
+			const innerCircle = item.querySelector('figure');
+			const txt = item.querySelector('figcaption');
+
+			emotionTimeline
+				.to(
+					innerCircle,
+					{
+						clipPath: 'circle(40%)',
+						duration: 0.15,
+						ease: 'sine.inOut',
+					},
+					index === 0 ? '<+=0.05' : '<'
+				)
+				.to(
+					txt,
+					{
+						opacity: 1,
+						duration: 0.05,
+						ease: 'none',
+					},
+					'<+=0.03'
+				);
+
+			if (config) {
+				emotionTimeline.to(emotionCirclesRef.current, {
+					...config,
+					duration: 0.2,
+					ease: 'none',
+				});
+			} else {
+				emotionTimeline.to(
+					{},
+					{
+						duration: 0.2,
+						ease: 'none',
+					}
+				);
 			}
-		);
 
-		emotionTimeline
-			.to(emotionCirclesRef.current, {
-				x: '-160svh',
-				duration: 1.4,
-				ease: 'none',
-			})
-			.to(emotionCirclesRef.current, {
-				y: '-80svh',
-				duration: 1,
-				ease: 'none',
-			})
-			.to(emotionCirclesRef.current, {
-				x: '-60svh',
-				duration: 1,
-				ease: 'none',
-			});
+			if (index < emotionCircleItem.length - 1) {
+				emotionTimeline
+					.to(
+						innerCircle,
+						{
+							clipPath: 'circle(20%)',
+							duration: 0.15,
+							ease: 'sine.out',
+						},
+						'<+=0.04'
+					)
+					.to(
+						txt,
+						{
+							opacity: 0,
+							duration: 0.05,
+							ease: 'none',
+						},
+						'<'
+					);
+			}
+		});
 
-		setTimeout(() => {
-			ScrollTrigger.refresh();
-		}, 100);
+		// setTimeout(() => {
+		// 	ScrollTrigger.refresh();
+		// }, 100);
 
 		return () => gsapContext.revert();
 	}, []);
@@ -313,7 +354,7 @@ function App() {
 					<EmotionCirclesWrap ref={emotionRef}>
 						<EmotionCirclesWrapInner>
 							<EmotionCircles className="emotion-circles" ref={emotionCirclesRef}>
-								<EmotionCirclesItem className="item">
+								<EmotionCirclesItem className="emotion-circles__item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_happy.png" alt="" />
@@ -321,7 +362,7 @@ function App() {
 										</CircleObj>
 									</Circle>
 								</EmotionCirclesItem>
-								<EmotionCirclesItem className="item">
+								<EmotionCirclesItem className="emotion-circles__item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_calm.png" alt="" />
@@ -329,7 +370,7 @@ function App() {
 										</CircleObj>
 									</Circle>
 								</EmotionCirclesItem>
-								<EmotionCirclesItem className="item trigger">
+								<EmotionCirclesItem className="emotion-circles__item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_focus.png" alt="" />
@@ -337,7 +378,7 @@ function App() {
 										</CircleObj>
 									</Circle>
 								</EmotionCirclesItem>
-								<EmotionCirclesItem className="item">
+								<EmotionCirclesItem className="emotion-circles__item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_sad.png" alt="" />
@@ -345,7 +386,7 @@ function App() {
 										</CircleObj>
 									</Circle>
 								</EmotionCirclesItem>
-								<EmotionCirclesItem className="item">
+								<EmotionCirclesItem className="emotion-circles__item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_lonely.png" alt="" />
@@ -353,7 +394,7 @@ function App() {
 										</CircleObj>
 									</Circle>
 								</EmotionCirclesItem>
-								<EmotionCirclesItem className="item">
+								<EmotionCirclesItem className="emotion-circles__item">
 									<Circle>
 										<CircleObj>
 											<CircleImage src="/assets/bg_circle_obj_dreamy.png" alt="" />
