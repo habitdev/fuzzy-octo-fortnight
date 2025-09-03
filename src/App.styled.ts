@@ -74,9 +74,12 @@ export const HeroMask = styled.figure`
 
 export const MaskBg = styled.span`
 	width: 100%;
-	display: flex;
+	height: 100%;
+	/* display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: center; */
+	background-repeat: no-repeat;
+	background-size: cover;
 `;
 
 export const MaskImage = styled.img`
@@ -150,7 +153,8 @@ export const WaveCircle = styled.span`
 	top: 50%;
 	left: 50%;
 	width: 40%;
-	height: 40%;
+	height: 0;
+	padding-bottom: 40%;
 	border-radius: 50%;
 	border: 1px solid rgba(255, 255, 255, 0.5);
 	transform: translate(-50%, -50%) scale(0.5);
@@ -258,7 +262,6 @@ export const CircleImage = styled.img`
 	border-radius: 50%;
 	width: 100%;
 	object-fit: cover;
-	/* transform: scale(0.3); */
 `;
 
 export const CircleTxt = styled.figcaption`
@@ -278,71 +281,76 @@ export const CircleTxt = styled.figcaption`
 
 // About Section
 export const AboutSection = styled.section`
+	overflow: hidden;
 	position: relative;
+	width: 100%;
 `;
 
 // About Background
-export const AboutBg = styled.div`
+export const AboutInner = styled.div`
+	width: 100%;
+	height: 300svh;
+`;
+
+export const BgListWrap = styled.div`
+	width: 100%;
+`;
+
+export const BgList = styled.ul`
+	transform: translate(0, 0);
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 2rem;
+	overflow: hidden;
+	width: 100%;
+`;
+
+export const BgListItem = styled.li<{ x?: string; y?: string }>`
+	display: flex;
+	opacity: 0.1;
+	filter: blur(30px);
+
+	${({ x }) => x === 'left' && 'justify-content: flex-end;'}
+	${({ y }) => y === 'top' && 'align-items: flex-end;'} 
+	${({ x, y }) => {
+		if (x === 'left' && y === 'top') return 'transform: translate(-100%, -100%);';
+		if (x === 'right' && y === 'top') return 'transform: translate(100%, -100%);';
+		if (x === 'left' && y === 'center') return 'transform: translate(-100%, 0);';
+		if (x === 'right' && y === 'center') return 'transform: translate(100%, 0);';
+		if (x === 'left' && y === 'bottom') return 'transform: translate(-100%, 100%);';
+		if (x === 'right' && y === 'bottom') return 'transform: translate(100%, 100%);';
+		return '';
+	}}
+`;
+
+export const BgImage = styled.img`
+	opacity: 0.2;
+`;
+
+// About Words
+export const AboutWords = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	text-align: center;
-`;
-
-export const BgListWrap = styled.div`
-	position: sticky;
-	width: 100%;
-	height: 100%;
-`;
-
-export const BgList = styled.ul`
-	display: inline-grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 2rem;
-	padding-top: 10rem;
-`;
-
-export const BgListItem = styled.li<{ position?: string }>`
-	display: flex;
-	${({ position }) => position === 'top' && 'align-items: flex-end;'}
-	${({ position }) => position === 'left' && 'justify-content: flex-end;'}
-
-  &.left.top {
-		transform: translate(-100%, -100%);
-	}
-	&.right.top {
-		transform: translate(100%, -100%);
-	}
-	&.left.bottom {
-		transform: translate(-100%, 100%);
-	}
-	&.right.bottom {
-		transform: translate(100%, 100%);
-	}
-`;
-
-export const BgImage = styled.img`
-	opacity: 0.3;
-	filter: blur(8px);
-`;
-
-// About Words
-export const AboutWords = styled.ul`
-	font-size: 60px;
+	font-size: 3.75rem;
 	font-weight: 500;
 	color: #fff;
 	text-align: center;
 `;
 
-export const AboutWordItem = styled.li`
+export const AboutWordItem = styled.div`
+	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
+	height: 100svh;
 `;
 
 export const AboutText = styled.p`
+	/* opacity: 0;
+	transform: translateY(30px); */
+
 	strong {
 		font-weight: 600;
 	}
@@ -350,6 +358,7 @@ export const AboutText = styled.p`
 
 // Footer
 export const Footer = styled.footer`
+	position: relative;
 	padding-top: 3rem;
 	padding-bottom: 3rem;
 	border-top-right-radius: 3.75rem;

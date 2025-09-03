@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom';
 import {
-	AboutBg,
+	AboutInner,
 	AboutSection,
 	AboutText,
 	AboutWordItem,
 	AboutWords,
 	BgImage,
 	BgList,
+	BgListItem,
+	BgListWrap,
 	BtnLink,
 	Circle,
 	CircleImage,
@@ -32,7 +33,6 @@ import {
 	HeroWrap,
 	Main,
 	MaskBg,
-	MaskImage,
 	WaveCircle,
 	WaveCircles,
 	WaveCircleWrap,
@@ -46,6 +46,7 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 function App() {
 	gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -64,7 +65,10 @@ function App() {
 	const emotionSectionRef = useRef(null);
 	const emotionRef = useRef(null);
 	const emotionCirclesRef = useRef(null);
-	const aboutRef = useRef(null);
+	const aboutSectionRef = useRef<HTMLElement | null>(null);
+	const aboutInnerRef = useRef(null);
+	const aboutBgWrapRef = useRef(null);
+	const aboutBgListRef = useRef(null);
 	const footerRef = useRef(null);
 
 	useEffect(() => {
@@ -86,7 +90,7 @@ function App() {
 
 			gsap.to(heroBgRef.current, {
 				id: 'hero-bg',
-				clipPath: 'inset(-20% -30%)',
+				clipPath: 'inset(-40% -100%)',
 				opacity: 0,
 				scrollTrigger: {
 					trigger: heroBgWrapRef.current,
@@ -109,20 +113,6 @@ function App() {
 					// markers: true,
 				},
 			});
-
-			// gsap.to(waveTitRef.current, {
-			// 	id: 'wave-tit',
-			// 	opacity: 1,
-			// 	y: 0,
-			// 	duration: 0.5,
-			// 	scrollTrigger: {
-			// 		trigger: waveTitWrapRef.current,
-			// 		start: 'center top',
-			// 		end: `center top`,
-			// 		// toggleActions: 'play none reverse none',
-			// 		// markers: true,
-			// 	},
-			// });
 
 			const circleSelector = gsap.utils.selector(rippleRef);
 			const circles = circleSelector('.circle');
@@ -189,106 +179,149 @@ function App() {
 					index * 0.5
 				);
 			});
-		});
 
-		const emotionSelector = gsap.utils.selector(emotionCirclesRef);
-		const emotionCircleItem = emotionSelector('.emotion-circles__item');
-		// const emotionCircleItem = emotionSelector('.item');
+			const emotionSelector = gsap.utils.selector(emotionCirclesRef);
+			const emotionCircleItem = emotionSelector('.emotion-circles__item');
 
-		const emotionMovement = [
-			{ x: '-90svh' },
-			{ x: '-180svh' },
-			{ y: '-90svh' },
-			{ x: '-45svh' },
-			null,
-			null,
-		];
+			const emotionMovement = [
+				{ x: '-90svh' },
+				{ x: '-180svh' },
+				{ y: '-90svh' },
+				{ x: '-45svh' },
+				null,
+				null,
+			];
 
-		const emotionTimeline = gsap.timeline({
-			scrollTrigger: {
-				id: 'st-emotion',
-				trigger: emotionRef.current,
-				start: 'top bottom',
-				end: 'bottom bottom',
-				scrub: true,
-				// markers: true,
-			},
-		});
+			const emotionTimeline = gsap.timeline({
+				scrollTrigger: {
+					id: 'st-emotion',
+					trigger: emotionRef.current,
+					start: 'top bottom',
+					end: 'bottom bottom',
+					scrub: true,
+					// markers: true,
+				},
+			});
 
-		emotionTimeline.to(emotionCircleItem, {
-			scale: 1,
-			force3D: true,
-			duration: 0.3,
-			ease: 'sine.out',
-		});
+			emotionTimeline.to(emotionCircleItem, {
+				scale: 1,
+				force3D: true,
+				duration: 0.3,
+				ease: 'sine.out',
+			});
 
-		emotionMovement.forEach((config, index) => {
-			const item = emotionCircleItem[index];
-			const innerCircle = item.querySelector('figure');
-			const txt = item.querySelector('figcaption');
+			emotionMovement.forEach((config, index) => {
+				const item = emotionCircleItem[index];
+				const innerCircle = item.querySelector('figure');
+				const txt = item.querySelector('figcaption');
 
-			emotionTimeline
-				.to(
-					innerCircle,
-					{
-						clipPath: 'circle(40%)',
-						duration: 0.15,
-						ease: 'sine.inOut',
-					},
-					index === 0 ? '<+=0.05' : '<'
-				)
-				.to(
-					txt,
-					{
-						opacity: 1,
-						duration: 0.05,
-						ease: 'none',
-					},
-					'<+=0.03'
-				);
-
-			if (config) {
-				emotionTimeline.to(emotionCirclesRef.current, {
-					...config,
-					duration: 0.2,
-					ease: 'none',
-				});
-			} else {
-				emotionTimeline.to(
-					{},
-					{
-						duration: 0.2,
-						ease: 'none',
-					}
-				);
-			}
-
-			if (index < emotionCircleItem.length - 1) {
 				emotionTimeline
 					.to(
 						innerCircle,
 						{
-							clipPath: 'circle(20%)',
+							clipPath: 'circle(40%)',
 							duration: 0.15,
-							ease: 'sine.out',
+							ease: 'sine.inOut',
 						},
-						'<+=0.04'
+						index === 0 ? '<+=0.05' : '<'
 					)
 					.to(
 						txt,
 						{
-							opacity: 0,
+							opacity: 1,
 							duration: 0.05,
 							ease: 'none',
 						},
-						'<'
+						'<+=0.03'
 					);
-			}
-		});
 
-		// setTimeout(() => {
-		// 	ScrollTrigger.refresh();
-		// }, 100);
+				if (config) {
+					emotionTimeline.to(emotionCirclesRef.current, {
+						...config,
+						duration: 0.2,
+						ease: 'none',
+					});
+				} else {
+					emotionTimeline.to(
+						{},
+						{
+							duration: 0.3,
+							ease: 'none',
+						}
+					);
+				}
+
+				if (index < emotionCircleItem.length - 1) {
+					emotionTimeline
+						.to(
+							innerCircle,
+							{
+								clipPath: 'circle(20%)',
+								duration: 0.15,
+								ease: 'sine.out',
+							},
+							'<+=0.04'
+						)
+						.to(
+							txt,
+							{
+								opacity: 0,
+								duration: 0.05,
+								ease: 'none',
+							},
+							'<'
+						);
+				}
+			});
+
+			const bgListSectionSelector = gsap.utils.selector(aboutSectionRef);
+			const bgListItems = bgListSectionSelector('.bg-item');
+
+			const aboutTl = gsap.timeline({
+				scrollTrigger: {
+					id: 'images',
+					trigger: aboutSectionRef.current,
+					start: 'top top',
+					// end: 'bottom top',
+					end: 'bottom bottom',
+					scrub: true,
+					pin: aboutInnerRef.current,
+					pinSpacing: false,
+					markers: true,
+				},
+			});
+ 
+
+			aboutTl.addLabel('startItems');
+
+			bgListItems.forEach((item, index) => {
+				aboutTl.to(
+					item,
+					{
+						transform: 'translate(0, 0)',
+						opacity: 0.8,
+						filter: 'blur(1px)',
+						duration: 2,
+						ease: 'power3.out',
+					},
+					'startItems+=' + index * 0.1
+				);
+			});
+
+			aboutTl.to(
+				aboutBgListRef.current,
+				{
+					y: '-30%',
+					duration: 3,
+					ease: 'none',
+				},
+				'startItems'
+			);
+
+			// setTimeout(() => {
+			// 	ScrollTrigger.refresh();
+			// }, 100);
+		});
 
 		return () => gsapContext.revert();
 	}, []);
@@ -301,8 +334,8 @@ function App() {
 						<HeroWrap ref={heroRef}>
 							<HeroSpot ref={heroBgWrapRef}>
 								<HeroMask ref={heroBgRef}>
-									<MaskBg>
-										<MaskImage src="/assets/img_hero.jpg" alt="cloud" />
+									<MaskBg style={{ backgroundImage: 'url(/assets/img_hero.jpg)' }}>
+										<span className="a11y-hidden">배경</span>
 									</MaskBg>
 								</HeroMask>
 							</HeroSpot>
@@ -407,27 +440,34 @@ function App() {
 					</EmotionCirclesWrap>
 				</EmotionSection>
 
-				<AboutSection>
-					<AboutBg>
-						<div className="bg-list-wrap">
-							<BgList>
-								<li className="left top">
+				<AboutSection ref={aboutSectionRef}>
+					<AboutInner ref={aboutInnerRef}>
+						<BgListWrap ref={aboutBgWrapRef}>
+							<BgList ref={aboutBgListRef}>
+								<BgListItem x="left" y="top" className="bg-item">
 									<BgImage src="/assets/bg_about_obj_01.png" alt="album" />
-								</li>
-								<li className="right top">
+								</BgListItem>
+								<BgListItem x="right" y="top" className="bg-item">
 									<BgImage src="/assets/bg_about_obj_02.png" alt="record" />
-								</li>
-								<li className="left bottom">
+								</BgListItem>
+								<BgListItem x="left" y="center" className="bg-item">
 									<BgImage src="/assets/bg_about_obj_03.png" alt="album" />
-								</li>
-								<li className="right bottom">
+								</BgListItem>
+								<BgListItem x="right" y="center" className="bg-item">
 									<BgImage src="/assets/bg_about_obj_04.png" alt="album" />
-								</li>
+								</BgListItem>
+								<BgListItem x="left" y="bottom" className="bg-item">
+									<BgImage src="/assets/bg_about_obj_01.png" alt="album" />
+								</BgListItem>
+								<BgListItem x="right" y="bottom" className="bg-item">
+									<BgImage src="/assets/bg_about_obj_02.png" alt="record" />
+								</BgListItem>
 							</BgList>
-						</div>
-					</AboutBg>
-					<Container>
-						<AboutWords>
+						</BgListWrap>
+					</AboutInner>
+
+					<AboutWords>
+						<Container>
 							<AboutWordItem>
 								<AboutText>
 									You <strong>feel</strong> it.
@@ -443,8 +483,8 @@ function App() {
 									A playlist born from your <strong>mood</strong>.
 								</AboutText>
 							</AboutWordItem>
-						</AboutWords>
-					</Container>
+						</Container>
+					</AboutWords>
 				</AboutSection>
 			</Main>
 			<Footer>
