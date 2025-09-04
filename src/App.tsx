@@ -51,27 +51,22 @@ import { Link } from 'react-router-dom';
 function App() {
 	gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-	const heroRef = useRef<HTMLElement | null>(null);
 	const heroBgWrapRef = useRef(null);
-	const heroBgRef = useRef(null);
-	const heroSectionRef = useRef<HTMLElement | null>(null);
-	const heroAllRef = useRef<HTMLDivElement | null>(null);
-	const heroTitWrapRef = useRef(null);
-	const heroTitRef = useRef(null);
-	const waveSectionRef = useRef<HTMLElement | null>(null);
-	const waveTitWrapRef = useRef(null);
-	const waveTitRef = useRef(null);
-	const rippleRef = useRef(null);
-	const emotionSectionRef = useRef(null);
-	const emotionRef = useRef(null);
-	const emotionCirclesRef = useRef(null);
-	const aboutSectionRef = useRef<HTMLElement | null>(null);
-	const aboutInnerRef = useRef(null);
-	const aboutBgWrapRef = useRef(null);
-	const aboutBgListRef = useRef(null);
-	const aboutTextWrapRef = useRef(null);
-	const footerRef = useRef(null);
-	const footerInnerRef = useRef(null);
+const heroBgRef = useRef(null);
+const heroTitRef = useRef(null);
+const waveSectionRef = useRef<HTMLElement | null>(null);
+const waveTitWrapRef = useRef(null);
+const waveTitRef = useRef(null);
+const rippleRef = useRef(null);
+const emotionSectionRef = useRef(null);
+const emotionRef = useRef(null);
+const emotionCirclesRef = useRef(null);
+const aboutSectionRef = useRef<HTMLElement | null>(null);
+const aboutInnerRef = useRef(null);
+const aboutBgListRef = useRef(null);
+const aboutTextWrapRef = useRef(null);
+const footerRef = useRef(null);
+const footerInnerRef = useRef(null);
 
 	useEffect(() => {
 		// Hero clip-path
@@ -425,9 +420,9 @@ function App() {
 	return (
 		<>
 			<Main>
-				<HeroSection ref={heroSectionRef}>
-					<HeroSectionAll ref={heroAllRef}>
-						<HeroWrap ref={heroRef}>
+				<HeroSection>
+					<HeroSectionAll>
+						<HeroWrap>
 							<HeroSpot ref={heroBgWrapRef}>
 								<HeroMask ref={heroBgRef}>
 									<MaskBg style={{ backgroundImage: 'url(/assets/img_hero.jpg)' }}>
@@ -436,7 +431,7 @@ function App() {
 								</HeroMask>
 							</HeroSpot>
 
-							<HeroTitleWrap ref={heroTitWrapRef}>
+							<HeroTitleWrap>
 								<HeroTitle ref={heroTitRef}>
 									<HeroTitleRow>Your Mood,</HeroTitleRow>
 									<HeroTitleRow>Your Music.</HeroTitleRow>
@@ -538,7 +533,7 @@ function App() {
 
 				<AboutSection ref={aboutSectionRef}>
 					<AboutInner ref={aboutInnerRef}>
-						<BgListWrap ref={aboutBgWrapRef}>
+						<BgListWrap>
 							<BgList ref={aboutBgListRef}>
 								<BgListItem x="left" y="top" className="bg-item">
 									<BgImage src="/assets/bg_about_obj_01.png" alt="album" />
