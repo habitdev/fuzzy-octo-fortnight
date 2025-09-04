@@ -40,7 +40,7 @@ import {
 	WaveTitWrap,
 	WaveWrap,
 	WaveWrapInner,
-} from './App.styled';
+} from './styles/App.styled';
 
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
