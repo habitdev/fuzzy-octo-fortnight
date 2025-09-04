@@ -69,6 +69,7 @@ function App() {
 	const aboutInnerRef = useRef(null);
 	const aboutBgWrapRef = useRef(null);
 	const aboutBgListRef = useRef(null);
+	const aboutTextWrapRef = useRef(null);
 	const footerRef = useRef(null);
 
 	useEffect(() => {
@@ -282,7 +283,6 @@ function App() {
 					id: 'images',
 					trigger: aboutSectionRef.current,
 					start: 'top top',
-					// end: 'bottom top',
 					end: 'bottom bottom',
 					scrub: true,
 					pin: aboutInnerRef.current,
@@ -290,7 +290,6 @@ function App() {
 					markers: true,
 				},
 			});
- 
 
 			aboutTl.addLabel('startItems');
 
@@ -299,24 +298,107 @@ function App() {
 					item,
 					{
 						transform: 'translate(0, 0)',
-						opacity: 0.8,
-						filter: 'blur(1px)',
-						duration: 2,
+						opacity: 0.3,
+						filter: 'blur(5px)',
+						duration: 3,
 						ease: 'power3.out',
 					},
-					'startItems+=' + index * 0.1
+					index * 0.08
 				);
 			});
 
 			aboutTl.to(
 				aboutBgListRef.current,
 				{
-					y: '-30%',
-					duration: 3,
+					y: '-50%',
+					duration: 2,
 					ease: 'none',
 				},
-				'startItems'
+				'<'
 			);
+
+			const aboutTxtWrapSelector = gsap.utils.selector(aboutTextWrapRef);
+			const aboutTxts = aboutTxtWrapSelector('[data-about-words]');
+
+			const aboutTxtTl = gsap.timeline({
+				scrollTrigger: {
+					id: 'about-txts',
+					trigger: aboutSectionRef.current,
+					start: 'top top',
+					endTrigger: aboutSectionRef.current,
+					end: 'bottom bottom',
+					pin: aboutTextWrapRef.current,
+					scrub: true,
+					// markers: true,
+				},
+			});
+
+			aboutTxts.forEach((item, index) => {
+				const text = item.querySelector('p');
+				const isLast = index === aboutTxts.length - 1;
+
+				aboutTxtTl.to(
+					item,
+					{
+						display: 'block',
+						ease: 'power2.out',
+					},
+					`<+=${index * 1}`
+				);
+
+				aboutTxtTl.to(
+					item,
+					{
+						opacity: 1,
+						duration: 3,
+						ease: 'power2.out',
+					},
+					`<+=${index * 1.1}`
+				);
+
+				aboutTxtTl.to(
+					text,
+					{
+						opacity: 1,
+						y: 0,
+						duration: 3,
+						ease: 'power2.out',
+					},
+					`<+=${index * 1.2}`
+				);
+
+				if (!isLast) {
+					aboutTxtTl.to(
+						item,
+						{
+							opacity: 0,
+							duration: 2.9,
+							ease: 'power2.out',
+						},
+						`<+=${(index + 1) * 1}`
+					);
+
+					aboutTxtTl.to(
+						item,
+						{
+							display: 'none',
+							ease: 'power2.out',
+						},
+						`<+=${(index + 1) * 1.1}`
+					);
+
+					aboutTxtTl.to(
+						text,
+						{
+							opacity: 0,
+							y: -30,
+							duration: 2.9,
+							ease: 'power2.out',
+						},
+						`<+=${(index + 1) * 1}`
+					);
+				}
+			});
 
 			// setTimeout(() => {
 			// 	ScrollTrigger.refresh();
@@ -466,24 +548,28 @@ function App() {
 						</BgListWrap>
 					</AboutInner>
 
-					<AboutWords>
-						<Container>
-							<AboutWordItem>
+					<AboutWords ref={aboutTextWrapRef}>
+						<AboutWordItem data-about-words>
+							<Container>
 								<AboutText>
 									You <strong>feel</strong> it.
 								</AboutText>
-							</AboutWordItem>
-							<AboutWordItem>
+							</Container>
+						</AboutWordItem>
+						<AboutWordItem data-about-words>
+							<Container>
 								<AboutText>
 									We <strong>play</strong> it.
 								</AboutText>
-							</AboutWordItem>
-							<AboutWordItem>
+							</Container>
+						</AboutWordItem>
+						<AboutWordItem data-about-words>
+							<Container>
 								<AboutText>
 									A playlist born from your <strong>mood</strong>.
 								</AboutText>
-							</AboutWordItem>
-						</Container>
+							</Container>
+						</AboutWordItem>
 					</AboutWords>
 				</AboutSection>
 			</Main>

@@ -289,7 +289,7 @@ export const AboutSection = styled.section`
 // About Background
 export const AboutInner = styled.div`
 	width: 100%;
-	height: 300svh;
+	height: 800svh;
 `;
 
 export const BgListWrap = styled.div`
@@ -308,7 +308,7 @@ export const BgList = styled.ul`
 export const BgListItem = styled.li<{ x?: string; y?: string }>`
 	display: flex;
 	opacity: 0.1;
-	filter: blur(30px);
+	filter: blur(20px);
 
 	${({ x }) => x === 'left' && 'justify-content: flex-end;'}
 	${({ y }) => y === 'top' && 'align-items: flex-end;'} 
@@ -324,7 +324,7 @@ export const BgListItem = styled.li<{ x?: string; y?: string }>`
 `;
 
 export const BgImage = styled.img`
-	opacity: 0.2;
+	opacity: 0.5;
 `;
 
 // About Words
@@ -333,6 +333,12 @@ export const AboutWords = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
+	height: 100svh;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
 	font-size: 3.75rem;
 	font-weight: 500;
 	color: #fff;
@@ -340,16 +346,23 @@ export const AboutWords = styled.div`
 `;
 
 export const AboutWordItem = styled.div`
+	/* position: absolute;
+  top: 0;
+  left: 0;
 	width: 100%;
+	height: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	height: 100svh;
+	justify-content: center; */ 
+
+	&:not(:first-child) {
+		display: none;
+	} 
 `;
 
 export const AboutText = styled.p`
-	/* opacity: 0;
-	transform: translateY(30px); */
+	opacity: 0;
+	transform: translateY(30px);
 
 	strong {
 		font-weight: 600;
