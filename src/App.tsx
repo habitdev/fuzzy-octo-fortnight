@@ -71,6 +71,7 @@ function App() {
 	const aboutBgListRef = useRef(null);
 	const aboutTextWrapRef = useRef(null);
 	const footerRef = useRef(null);
+	const footerInnerRef = useRef(null);
 
 	useEffect(() => {
 		// Hero clip-path
@@ -287,7 +288,7 @@ function App() {
 					scrub: true,
 					pin: aboutInnerRef.current,
 					pinSpacing: false,
-					markers: true,
+					// markers: true,
 				},
 			});
 
@@ -398,6 +399,19 @@ function App() {
 						`<+=${(index + 1) * 1}`
 					);
 				}
+			});
+
+			gsap.to(footerInnerRef.current, {
+				y: 0,
+				opacity: 1,
+				duration: 1,
+				scrollTrigger: {
+					trigger: footerRef.current,
+					start: 'top bottom',
+					end: 'bottom bottom',
+					// markers: true,
+					scrub: true
+				},
 			});
 
 			// setTimeout(() => {
@@ -573,8 +587,8 @@ function App() {
 					</AboutWords>
 				</AboutSection>
 			</Main>
-			<Footer>
-				<Container>
+			<Footer ref={footerRef}>
+				<Container ref={footerInnerRef}>
 					<BtnLink as={Link} to="#">
 						<span>Wanna give it a try?</span>
 						<img src="/assets/ico_arrow_down_left.svg" alt="arrow" />

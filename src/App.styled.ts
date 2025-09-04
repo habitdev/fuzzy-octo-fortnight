@@ -353,11 +353,11 @@ export const AboutWordItem = styled.div`
 	height: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: center; */ 
+	justify-content: center; */
 
 	&:not(:first-child) {
 		display: none;
-	} 
+	}
 `;
 
 export const AboutText = styled.p`
@@ -371,12 +371,15 @@ export const AboutText = styled.p`
 
 // Footer
 export const Footer = styled.footer`
-	position: relative;
-	padding-top: 3rem;
-	padding-bottom: 3rem;
-	border-top-right-radius: 3.75rem;
-	border-top-left-radius: 3.75rem;
-	background-color: #5b5bf1;
+
+	${Container} {
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+		border-top-right-radius: 3.75rem;
+		border-top-left-radius: 3.75rem;
+		background-color: #5b5bf1;
+		transform: translateY(100%);
+	}
 `;
 
 export const BtnLink = styled.a`
