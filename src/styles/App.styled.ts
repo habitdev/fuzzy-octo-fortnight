@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 // Visual Section
 export const HeroSection = styled.section`
-	background-color: #111;
+	background-color: #121212;
 `;
 
 export const HeroSectionAll = styled.div`
@@ -33,7 +33,7 @@ export const HeroTitleWrap = styled.div`
 	align-content: center;
 	justify-content: center;
 	height: 100svh;
-	font-size: 6.875rem;
+	font-size: 7rem;
 	font-weight: 700;
 	line-height: 1;
 	color: #fff;
@@ -41,10 +41,11 @@ export const HeroTitleWrap = styled.div`
 `;
 
 export const HeroTitle = styled.div`
-	opacity: 1;
-	transform: translateY(0);
 	z-index: 2;
 	position: relative;
+	text-transform: uppercase;
+	transform: translateY(0);
+	opacity: 1;
 `;
 
 export const HeroTitleRow = styled.p`
@@ -106,6 +107,7 @@ export const WaveWrapInner = styled.div`
 `;
 
 export const WaveTitWrap = styled.div`
+	z-index: 2;
 	opacity: 1;
 	position: sticky;
 	top: 0;
@@ -121,8 +123,9 @@ export const WaveTit = styled.h2`
 	opacity: 0;
 	transform: translateY(30px);
 	color: #fff;
-	font-size: 6.875rem;
+	font-size: 7rem;
 	font-weight: 700;
+	text-transform: uppercase;
 	z-index: 2;
 	margin-bottom: 2rem;
 `;
@@ -156,7 +159,7 @@ export const WaveCircle = styled.span`
 	height: 0;
 	padding-bottom: 40%;
 	border-radius: 50%;
-	border: 1px solid rgba(255, 255, 255, 0.5);
+	border: 1px solid #fd3f52;
 	transform: translate(-50%, -50%) scale(0.5);
 `;
 
@@ -182,12 +185,14 @@ export const EmotionWords = styled.div`
 
 export const EmotionText = styled.p.withConfig({
 	shouldForwardProp: (prop) => prop !== 'space',
-})<{ space?: boolean }>`
-	font-size: 3.75rem;
-	${({ space }) => space && 'margin-left: 13vw;'}
+})<{ space?: 'small' | 'big' }>`
+	font-size: 4rem;
+	font-weight: 500;
+	${({ space }) => space === 'small' && 'margin-left: 8vw;'}
+	${({ space }) => space === 'big' && 'margin-left: 13vw;'}
 
 	strong {
-		font-weight: 900;
+		font-weight: 700;
 	}
 `;
 
@@ -228,7 +233,7 @@ export const EmotionCirclesItem = styled.li`
 	height: 90svh;
 	border-radius: 50%;
 	padding: 3.75rem;
-	border: 1px solid #dcdcdc;
+	border: 1px solid #dedede;
 	transform: scale(0);
 	transition: scale 0.2s;
 
@@ -256,6 +261,18 @@ export const CircleObj = styled.figure`
 	height: 100%;
 	text-align: center;
 	clip-path: circle(20%);
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		background-color: #111;
+		opacity: 0.2;
+	}
 `;
 
 export const CircleImage = styled.img`
@@ -274,26 +291,29 @@ export const CircleTxt = styled.figcaption`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 3.125rem;
-	font-weight: 600;
+	font-weight: 500;
+	font-size: 4.25rem;
+	text-transform: uppercase;
 	color: #fff;
 `;
 
 // About Section
 export const AboutSection = styled.section`
-	overflow: hidden;
 	position: relative;
 	width: 100%;
 `;
 
 // About Background
 export const AboutInner = styled.div`
+	position: absolute;
+	top: 0;
 	width: 100%;
-	height: 800svh;
+	height: 100%;
+	overflow: hidden;
 `;
 
 export const BgListWrap = styled.div`
-	width: 100%;
+	height: 100%;
 `;
 
 export const BgList = styled.ul`
@@ -301,7 +321,6 @@ export const BgList = styled.ul`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 2rem;
-	overflow: hidden;
 	width: 100%;
 `;
 
@@ -329,55 +348,59 @@ export const BgImage = styled.img`
 
 // About Words
 export const AboutWords = styled.div`
+	width: 100%;
+	height: 300svh;
+	font-size: 7rem;
+	color: #fff;
+	text-align: center;
+`;
+
+export const AboutWordsInner = styled.div``;
+
+export const AboutWordItem = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100svh;
 	display: flex;
-	flex-wrap: wrap;
 	align-items: center;
-	align-content: center;
 	justify-content: center;
-	font-size: 3.75rem;
-	font-weight: 500;
-	color: #fff;
-	text-align: center;
-`;
-
-export const AboutWordItem = styled.div`
-	/* position: absolute;
-  top: 0;
-  left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center; */
-
-	&:not(:first-child) {
-		display: none;
-	}
+	height: 100svh;
 `;
 
 export const AboutText = styled.p`
 	opacity: 0;
 	transform: translateY(30px);
+	text-transform: uppercase;
+	font-weight: 700;
+
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke: 1px #fff;
+
+	.on & {
+		opacity: 1;
+		transform: translateY(0);
+		transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	}
 
 	strong {
-		font-weight: 600;
+		-webkit-text-fill-color: initial;
+		-webkit-text-stroke: 0;
+		color: #fd3f52;
 	}
 `;
 
 // Footer
 export const Footer = styled.footer`
+	position: relative;
 
 	${Container} {
 		padding-top: 3rem;
 		padding-bottom: 3rem;
 		border-top-right-radius: 3.75rem;
 		border-top-left-radius: 3.75rem;
-		background-color: #5b5bf1;
+		background-color: #fd3f52;
 		transform: translateY(100%);
 	}
 `;
@@ -389,12 +412,20 @@ export const BtnLink = styled.a`
 	width: 100%;
 	padding: 0.625em 1em;
 	color: #fff;
-	font-size: 50px;
+	font-size: 3.25rem;
+	font-weight: 700;
 	text-decoration: none;
+	text-transform: uppercase;
 	border: 2px solid #fff;
 	border-radius: 2.125rem;
+	transition: box-shadow 0.2s ease-in-out;
 
 	span + img {
 		margin-left: 0.5em;
+		width: 1em;
 	}
+
+	&:hover {
+		box-shadow: 10px 15px 0 #991D2D;
+	} 
 `;

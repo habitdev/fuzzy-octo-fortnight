@@ -4,6 +4,7 @@ import {
 	AboutText,
 	AboutWordItem,
 	AboutWords,
+	AboutWordsInner,
 	BgImage,
 	BgList,
 	BgListItem,
@@ -52,21 +53,23 @@ function App() {
 	gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 	const heroBgWrapRef = useRef(null);
-const heroBgRef = useRef(null);
-const heroTitRef = useRef(null);
-const waveSectionRef = useRef<HTMLElement | null>(null);
-const waveTitWrapRef = useRef(null);
-const waveTitRef = useRef(null);
-const rippleRef = useRef(null);
-const emotionSectionRef = useRef(null);
-const emotionRef = useRef(null);
-const emotionCirclesRef = useRef(null);
-const aboutSectionRef = useRef<HTMLElement | null>(null);
-const aboutInnerRef = useRef(null);
-const aboutBgListRef = useRef(null);
-const aboutTextWrapRef = useRef(null);
-const footerRef = useRef(null);
-const footerInnerRef = useRef(null);
+	const heroBgRef = useRef(null);
+	const heroTitRef = useRef(null);
+	const waveSectionRef = useRef<HTMLElement | null>(null);
+	const waveTitWrapRef = useRef(null);
+	const waveTitRef = useRef(null);
+	const rippleRef = useRef(null);
+	const emotionSectionRef = useRef(null);
+	const emotionRef = useRef(null);
+	const emotionCirclesRef = useRef(null);
+	const aboutSectionRef = useRef<HTMLElement | null>(null);
+	const aboutInnerRef = useRef(null);
+	const aboutBgListWrapRef = useRef(null);
+	const aboutBgListRef = useRef(null);
+	const aboutTextListWrapRef = useRef(null);
+	const aboutTextListRef = useRef(null);
+	const footerRef = useRef(null);
+	const footerInnerRef = useRef(null);
 
 	useEffect(() => {
 		// Hero clip-path
@@ -279,15 +282,16 @@ const footerInnerRef = useRef(null);
 					id: 'images',
 					trigger: aboutSectionRef.current,
 					start: 'top top',
-					end: 'bottom bottom',
-					scrub: true,
-					pin: aboutInnerRef.current,
+					endTrigger: footerRef.current,
+					end: 'top bottom',
+					scrub: 1,
+					pin: aboutBgListWrapRef.current,
 					pinSpacing: false,
 					// markers: true,
 				},
 			});
 
-			aboutTl.addLabel('startItems');
+			aboutTl.addLabel('start-bg');
 
 			bgListItems.forEach((item, index) => {
 				aboutTl.to(
@@ -299,7 +303,7 @@ const footerInnerRef = useRef(null);
 						duration: 3,
 						ease: 'power3.out',
 					},
-					index * 0.08
+					`start-bg+=${index * 0.8}`
 				);
 			});
 
@@ -307,107 +311,48 @@ const footerInnerRef = useRef(null);
 				aboutBgListRef.current,
 				{
 					y: '-50%',
-					duration: 2,
-					ease: 'none',
+					duration: 8,
+					ease: 'power4.out',
 				},
-				'<'
+				'start-bg+=1.5'
 			);
 
-			const aboutTxtWrapSelector = gsap.utils.selector(aboutTextWrapRef);
+			const aboutTxtWrapSelector = gsap.utils.selector(aboutTextListWrapRef);
 			const aboutTxts = aboutTxtWrapSelector('[data-about-words]');
+			ScrollTrigger.create({
+				id: 'words',
+				trigger: aboutSectionRef.current,
+				start: 'top top',
+				end: 'bottom bottom',
+				pin: aboutTextListRef.current,
+				scrub: true,
+				pinSpacing: false,
+				// markers: true,
+				onUpdate: (self) => {
+					const progress = self.progress; // 0 ~ 1
+					const index = Math.min(aboutTxts.length - 1, Math.floor(progress * aboutTxts.length));
 
-			const aboutTxtTl = gsap.timeline({
-				scrollTrigger: {
-					id: 'about-txts',
-					trigger: aboutSectionRef.current,
-					start: 'top top',
-					endTrigger: aboutSectionRef.current,
-					end: 'bottom bottom',
-					pin: aboutTextWrapRef.current,
-					scrub: true,
-					// markers: true,
+					aboutTxts.forEach((item, i) => {
+						item.classList.toggle('on', i === index);
+					});
 				},
 			});
 
-			aboutTxts.forEach((item, index) => {
-				const text = item.querySelector('p');
-				const isLast = index === aboutTxts.length - 1;
-
-				aboutTxtTl.to(
-					item,
-					{
-						display: 'block',
-						ease: 'power2.out',
+			gsap.fromTo(
+				footerInnerRef.current,
+				{ y: 100 },
+				{
+					y: 0,
+					duration: 0.3,
+					scrollTrigger: {
+						trigger: footerRef.current,
+						start: 'top bottom',
+						end: 'center bottom',
+						toggleActions: 'play none play reverse',
+						// markers: true,
 					},
-					`<+=${index * 1}`
-				);
-
-				aboutTxtTl.to(
-					item,
-					{
-						opacity: 1,
-						duration: 3,
-						ease: 'power2.out',
-					},
-					`<+=${index * 1.1}`
-				);
-
-				aboutTxtTl.to(
-					text,
-					{
-						opacity: 1,
-						y: 0,
-						duration: 3,
-						ease: 'power2.out',
-					},
-					`<+=${index * 1.2}`
-				);
-
-				if (!isLast) {
-					aboutTxtTl.to(
-						item,
-						{
-							opacity: 0,
-							duration: 2.9,
-							ease: 'power2.out',
-						},
-						`<+=${(index + 1) * 1}`
-					);
-
-					aboutTxtTl.to(
-						item,
-						{
-							display: 'none',
-							ease: 'power2.out',
-						},
-						`<+=${(index + 1) * 1.1}`
-					);
-
-					aboutTxtTl.to(
-						text,
-						{
-							opacity: 0,
-							y: -30,
-							duration: 2.9,
-							ease: 'power2.out',
-						},
-						`<+=${(index + 1) * 1}`
-					);
 				}
-			});
-
-			gsap.to(footerInnerRef.current, {
-				y: 0,
-				opacity: 1,
-				duration: 1,
-				scrollTrigger: {
-					trigger: footerRef.current,
-					start: 'top bottom',
-					end: 'bottom bottom',
-					// markers: true,
-					scrub: true
-				},
-			});
+			);
 
 			// setTimeout(() => {
 			// 	ScrollTrigger.refresh();
@@ -462,15 +407,9 @@ const footerInnerRef = useRef(null);
 					<EmotionTextWrap>
 						<Container>
 							<EmotionWords>
-								<EmotionText>
-									Some <strong>feelings</strong> can’t be explained.
-								</EmotionText>
-								<EmotionText space={true}>
-									But they can be <strong>heard</strong>.
-								</EmotionText>
-								<EmotionText>
-									We help you <strong>hear</strong> yours.
-								</EmotionText>
+								<EmotionText space='small'>Some feelings can’t be explained.</EmotionText>
+								<EmotionText space="big">But they can be heard.</EmotionText>
+								<EmotionText>We help you hear yours.</EmotionText>
 							</EmotionWords>
 						</Container>
 					</EmotionTextWrap>
@@ -533,7 +472,7 @@ const footerInnerRef = useRef(null);
 
 				<AboutSection ref={aboutSectionRef}>
 					<AboutInner ref={aboutInnerRef}>
-						<BgListWrap>
+						<BgListWrap ref={aboutBgListWrapRef}>
 							<BgList ref={aboutBgListRef}>
 								<BgListItem x="left" y="top" className="bg-item">
 									<BgImage src="/assets/bg_about_obj_01.png" alt="album" />
@@ -557,28 +496,30 @@ const footerInnerRef = useRef(null);
 						</BgListWrap>
 					</AboutInner>
 
-					<AboutWords ref={aboutTextWrapRef}>
-						<AboutWordItem data-about-words>
-							<Container>
-								<AboutText>
-									You <strong>feel</strong> it.
-								</AboutText>
-							</Container>
-						</AboutWordItem>
-						<AboutWordItem data-about-words>
-							<Container>
-								<AboutText>
-									We <strong>play</strong> it.
-								</AboutText>
-							</Container>
-						</AboutWordItem>
-						<AboutWordItem data-about-words>
-							<Container>
-								<AboutText>
-									A playlist born from your <strong>mood</strong>.
-								</AboutText>
-							</Container>
-						</AboutWordItem>
+					<AboutWords ref={aboutTextListWrapRef}>
+						<AboutWordsInner ref={aboutTextListRef}>
+							<AboutWordItem data-about-words>
+								<Container>
+									<AboutText>
+										You <strong>feel</strong> it.
+									</AboutText>
+								</Container>
+							</AboutWordItem>
+							<AboutWordItem data-about-words>
+								<Container>
+									<AboutText>
+										We <strong>play</strong> it.
+									</AboutText>
+								</Container>
+							</AboutWordItem>
+							<AboutWordItem data-about-words>
+								<Container>
+									<AboutText>
+										A playlist born from your <strong>mood</strong>.
+									</AboutText>
+								</Container>
+							</AboutWordItem>
+						</AboutWordsInner>
 					</AboutWords>
 				</AboutSection>
 			</Main>

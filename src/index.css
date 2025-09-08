@@ -60,14 +60,14 @@ table {
   box-sizing: border-box;
 }
 body {
-	font-family: -apple-system, Montserrat, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+	font-family: -apple-system, Barlow, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
 		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
   line-height: normal;
   letter-spacing: -0.1em;
   font-size-adjust: 0.5;
-  background-color: #111;
+  background-color: #121212;
 }
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
