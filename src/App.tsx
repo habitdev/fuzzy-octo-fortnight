@@ -407,9 +407,9 @@ function App() {
 					<EmotionTextWrap>
 						<Container>
 							<EmotionWords>
-								<EmotionText space='small'>Some feelings can’t be explained.</EmotionText>
+								<EmotionText space='small'>Some feelings can’t be <strong>explained</strong>.</EmotionText>
 								<EmotionText space="big">But they can be heard.</EmotionText>
-								<EmotionText>We help you hear yours.</EmotionText>
+								<EmotionText>We help you <strong>hear yours</strong>.</EmotionText>
 							</EmotionWords>
 						</Container>
 					</EmotionTextWrap>

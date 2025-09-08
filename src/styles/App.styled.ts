@@ -168,8 +168,8 @@ export const EmotionSection = styled.section`
 	position: relative;
 	padding-top: 6rem;
 	padding-bottom: 12rem;
-	border-top-right-radius: 3.75rem;
-	border-top-left-radius: 3.75rem;
+	border-top-right-radius: 2rem;
+	border-top-left-radius: 2rem;
 	background-color: #fff;
 `;
 
@@ -188,6 +188,7 @@ export const EmotionText = styled.p.withConfig({
 })<{ space?: 'small' | 'big' }>`
 	font-size: 4rem;
 	font-weight: 500;
+	text-transform: uppercase;
 	${({ space }) => space === 'small' && 'margin-left: 8vw;'}
 	${({ space }) => space === 'big' && 'margin-left: 13vw;'}
 
@@ -198,7 +199,7 @@ export const EmotionText = styled.p.withConfig({
 
 export const EmotionCirclesWrap = styled.div`
 	position: relative;
-	height: 700svh;
+	height: 300svh;
 `;
 
 export const EmotionCirclesWrapInner = styled.div`
@@ -291,7 +292,7 @@ export const CircleTxt = styled.figcaption`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 4.25rem;
 	text-transform: uppercase;
 	color: #fff;
@@ -398,8 +399,8 @@ export const Footer = styled.footer`
 	${Container} {
 		padding-top: 3rem;
 		padding-bottom: 3rem;
-		border-top-right-radius: 3.75rem;
-		border-top-left-radius: 3.75rem;
+		border-top-right-radius: 2rem;
+		border-top-left-radius: 2rem;
 		background-color: #fd3f52;
 		transform: translateY(100%);
 	}
@@ -426,6 +427,6 @@ export const BtnLink = styled.a`
 	}
 
 	&:hover {
-		box-shadow: 10px 15px 0 #991D2D;
-	} 
+		box-shadow: 10px 15px 0 #991d2d;
+	}
 `;
